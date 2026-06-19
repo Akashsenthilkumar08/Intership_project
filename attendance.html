@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Attendance</title>
+
+<style>
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:#0f172a;
+font-family:Poppins,sans-serif;
+color:white;
+}
+
+.box{
+background:#1e293b;
+padding:40px;
+border-radius:20px;
+text-align:center;
+width:350px;
+}
+
+.check{
+font-size:80px;
+color:#22c55e;
+}
+</style>
+<link rel="icon" href="favicon.ico">
+</head>
+<body>
+
+<div class="box">
+
+<div class="check">✓</div>
+
+<h1>Attendance Marked</h1>
+
+<p>Employee Active</p>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+doc,
+updateDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAJwbgx79GDFIQgWK5NRgel2PiPcLhoyjw",
+authDomain: "akash-1c06d.firebaseapp.com",
+projectId: "akash-1c06d",
+storageBucket: "akash-1c06d.firebasestorage.app",
+messagingSenderId: "661817702117",
+appId: "1:661817702117:web:4c2aa4ca9feac8d54a060c"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
+
+if(id){
+
+await updateDoc(
+doc(db,"employees",id),
+{
+attendance:"Present"
+}
+);
+
+}
+
+setTimeout(()=>{
+
+location.href="dashboard.html";
+
+},2000);
+
+</script>
+
+</body>
+</html>

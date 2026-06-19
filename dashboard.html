@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <div>
+            <h1>
+                <i class="fa-solid fa-users"></i>
+                Employee Dashboard
+            </h1>
+            <p>Employee Management System</p>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="cards">
+        <div class="stat-card blue">
+            <div class="icon"><i class="fa-solid fa-users"></i></div>
+            <div>
+                <h2 id="employeeCount">0</h2>
+                <p>Total Employees</p>
+            </div>
+        </div>
+
+        <div class="stat-card green">
+            <div class="icon"><i class="fa-solid fa-building"></i></div>
+            <div>
+                <h2 id="departmentCount">0</h2>
+                <p>Departments</p>
+            </div>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            <div>
+                <h2>₹<span id="salaryCount">0</span></h2>
+                <p>Total Salary</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+        <input type="text" id="search" placeholder="Search Employee..." onkeyup="filterEmployees()">
+        
+        <select id="deptFilter" onchange="filterEmployees()">
+            <option value="">All Departments</option>
+        </select>
+
+        <div class="attendance-terminal" style="display: flex; gap: 8px; background: white; padding: 6px 12px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,.07); align-items: center;">
+            <span style="font-size: 13px; font-weight: 600; color: #4b5563;"><i class="fa-solid fa-id-badge"></i> Quick Punch:</span>
+            <input type="text" id="terminalIdInput" placeholder="Enter Employee ID..." style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 10px; width: 160px; box-shadow: none; min-width: unset;">
+            <button onclick="submitTerminalAttendance()" style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s;">
+                Check In
+            </button>
+        </div>
+
+        <button class="add-btn" onclick="openModal()">
+            <i class="fa-solid fa-plus"></i> Add Employee
+        </button>
+    </div>
+
+    <div id="employeeGrid" class="grid"></div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Employee Form</h2>
+        <input type="text" id="name" placeholder="Employee Name">
+        <input type="text" id="dept" placeholder="Department">
+        <input type="number" id="salary" placeholder="Salary">
+        <input type="file" id="photo" accept="image/*">
+        <button onclick="addEmployee()">Save Employee</button>
+    </div>
+</div>
+
+<div id="scannerModal" class="modal">
+    <div class="scanner-box" style="width: 400px; background: white; padding: 30px; border-radius: 25px; text-align: center;">
+        <span class="close" onclick="closeScanner()">&times;</span>
+        <h2>Attendance Processed</h2>
+        <div id="scanResult" style="margin-top: 15px;"></div>
+        <button onclick="closeScanner()" style="margin-top: 20px; background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600;">Done</button>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<audio id="successSound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav">
+</audio>
+
+<footer>
+    <p>© 2026 Employee Management System</p>
+</footer>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
